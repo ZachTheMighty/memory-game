@@ -6,11 +6,12 @@ export default function Game() {
   const [gifs, setGifs] = useState(
     shuffle(Object.values(import.meta.glob("../assets/*", { eager: true }))),
   );
+  const [score, setScore] = useState(0);
 
   return (
     <>
       <div className="flex flex-col mb-4 text-xl sm:text-2xl font-semibold">
-        <div>Score: 0</div>
+        <div>Score: {score}</div>
         <div>Best: 0</div>
       </div>
       <div className="min-h-screen grid grid-cols-[repeat(auto-fit,_minmax(250px,_1fr))] gap-16">
@@ -20,6 +21,7 @@ export default function Game() {
             key={gif.default}
             gifs={gifs}
             setGifs={setGifs}
+            setScore={setScore}
             shuffle={shuffle}
           />
         ))}
