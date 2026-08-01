@@ -11,6 +11,7 @@ export default function Card({
   setBest,
   clicked,
   setClicked,
+  initState,
 }) {
   return (
     <div
@@ -18,9 +19,9 @@ export default function Card({
         !clicked[gif.default] && setScore((prevScore) => prevScore + 1);
         if (clicked[gif.default]) {
           setScore(0);
+          setClicked(initState);
           if (score > best) setBest(score);
-        }
-        setClicked({ ...clicked, [gif.default]: true });
+        } else setClicked({ ...clicked, [gif.default]: true });
         setGifs(shuffle(gifs));
       }}
       className="bg-slate-800 h-80 p-2 rounded-md hover:-translate-y-1 trasnition-translate-y duration-100 hover:cursor-pointer hover:shadow-[0_0px_10px_0px_rgba(255,255,255,0.5)]"
