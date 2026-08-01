@@ -1,9 +1,11 @@
 import Card from "./components/card.jsx";
+import { useState } from "react";
+import shuffle from "./utils/shuffle.js";
 
 export default function App() {
-  const gifs = Object.values(
-    import.meta.glob("./assets/*", { eager: true }),
-  ).sort(() => Math.random() - 0.5);
+  const [gifs, setGifs] = useState(
+    shuffle(Object.values(import.meta.glob("./assets/*", { eager: true }))),
+  );
 
   return (
     <>
@@ -13,7 +15,13 @@ export default function App() {
       </div>
       <div className="min-h-screen grid grid-cols-[repeat(auto-fit,_minmax(250px,_1fr))] gap-16">
         {gifs.map((gif, index) => (
-          <Card gif={gif} key={index} />
+          <Card
+            gif={gif}
+            key={index}
+            gifs={gifs}
+            setGifs={setGifs}
+            shuffle={shuffle}
+          />
         ))}
       </div>
     </>
