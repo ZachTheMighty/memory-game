@@ -13,6 +13,16 @@ export default function Game() {
   const [score, setScore] = useState(0);
   const [best, setBest] = useState(0);
 
+  function handleOnClick(gif) {
+    !clicked[gif.default] && setScore((prevScore) => prevScore + 1);
+    if (clicked[gif.default]) {
+      setScore(0);
+      setClicked(initState);
+      if (score > best) setBest(score);
+    } else setClicked({ ...clicked, [gif.default]: true });
+    setGifs(shuffle(gifs));
+  }
+
   return (
     <>
       <div className="flex flex-col mb-4 text-xl sm:text-2xl font-semibold">
@@ -23,17 +33,8 @@ export default function Game() {
         {gifs.map((gif) => (
           <Card
             gif={gif}
+            handleOnClick={() => handleOnClick(gif)}
             key={gif.default}
-            gifs={gifs}
-            setGifs={setGifs}
-            score={score}
-            setScore={setScore}
-            best={best}
-            setBest={setBest}
-            shuffle={shuffle}
-            clicked={clicked}
-            setClicked={setClicked}
-            initState={initState}
           />
         ))}
       </div>
