@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { useEffect } from "react";
 
+import getTitle from "../utils/get_title.js";
+
 export default function Card() {
   const [gifs, setGifs] = useState(
     Object.values(import.meta.glob("../assets/*", { eager: true })),
@@ -18,7 +20,7 @@ export default function Card() {
     fetchData().then((data) =>
       setGif({
         url: data.data.images.original.url.default,
-        title: data.data.title,
+        title: getTitle(data.data.images.original.url.default),
       }),
     );
   }, []);
