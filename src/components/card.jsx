@@ -1,4 +1,3 @@
-import { useState } from "react";
 import getTitle from "../utils/get_title.js";
 
 export default function Card({
@@ -10,17 +9,18 @@ export default function Card({
   setScore,
   best,
   setBest,
+  clicked,
+  setClicked,
 }) {
-  const [clicked, setClicked] = useState(false);
   return (
     <div
       onClick={() => {
-        !clicked && setScore((prevScore) => prevScore + 1);
-        if (clicked) {
+        !clicked[gif.default] && setScore((prevScore) => prevScore + 1);
+        if (clicked[gif.default]) {
           setScore(0);
           if (score > best) setBest(score);
         }
-        setClicked(true);
+        setClicked({ ...clicked, [gif.default]: true });
         setGifs(shuffle(gifs));
       }}
       className="bg-slate-800 h-80 p-2 rounded-md hover:-translate-y-1 trasnition-translate-y duration-100 hover:cursor-pointer hover:shadow-[0_0px_10px_0px_rgba(255,255,255,0.5)]"

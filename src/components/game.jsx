@@ -6,6 +6,10 @@ export default function Game() {
   const [gifs, setGifs] = useState(
     shuffle(Object.values(import.meta.glob("../assets/*", { eager: true }))),
   );
+  const object = {};
+  gifs.forEach((gif) => (object[gif.default] = false));
+  const [clicked, setClicked] = useState(object);
+
   const [score, setScore] = useState(0);
   const [best, setBest] = useState(0);
 
@@ -27,6 +31,8 @@ export default function Game() {
             best={best}
             setBest={setBest}
             shuffle={shuffle}
+            clicked={clicked}
+            setClicked={setClicked}
           />
         ))}
       </div>
