@@ -1,12 +1,25 @@
 import { useState } from "react";
 import getTitle from "../utils/get_title.js";
 
-export default function Card({ gif, gifs, setGifs, shuffle, setScore }) {
+export default function Card({
+  gif,
+  gifs,
+  setGifs,
+  shuffle,
+  score,
+  setScore,
+  best,
+  setBest,
+}) {
   const [clicked, setClicked] = useState(false);
   return (
     <div
       onClick={() => {
         !clicked && setScore((prevScore) => prevScore + 1);
+        if (clicked) {
+          setScore(0);
+          if (score > best) setBest(score);
+        }
         setClicked(true);
         setGifs(shuffle(gifs));
       }}
