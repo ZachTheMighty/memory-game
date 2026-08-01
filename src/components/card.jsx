@@ -1,35 +1,14 @@
-import { useState } from "react";
-import { useEffect } from "react";
-
 import getTitle from "../utils/get_title.js";
 
-export default function Card() {
-  const [gifs, setGifs] = useState(
-    Object.values(import.meta.glob("../assets/*", { eager: true })),
-  );
-  const [gif, setGif] = useState(null);
-
-  function fetchData() {
-    const random = Math.floor(Math.random() * 11);
-    return Promise.resolve({
-      data: { images: { original: { url: gifs[random] } } },
-    });
-  }
-
-  useEffect(() => {
-    fetchData().then((data) =>
-      setGif({
-        url: data.data.images.original.url.default,
-        title: getTitle(data.data.images.original.url.default),
-      }),
-    );
-  }, []);
-
+export default function Card({ gif }) {
   return (
     <div className="bg-slate-800 h-80 p-2 rounded-md hover:-translate-y-1 trasnition-translate-y duration-100 hover:cursor-pointer hover:shadow-[0_0px_10px_0px_rgba(255,255,255,0.5)]">
-      <img className="w-full h-[80%] object-cover rounded-md" src={gif?.url} />
+      <img
+        className="w-full h-[80%] object-cover rounded-md"
+        src={gif.default}
+      />
       <div className="h-[20%] flex justify-center items-center text-2xl font-semibold">
-        {gif?.title}
+        {getTitle(gif.default)}
       </div>
     </div>
   );
